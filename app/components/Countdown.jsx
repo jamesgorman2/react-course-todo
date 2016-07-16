@@ -30,6 +30,11 @@ export default React.createClass({
       this.setState({status: STOPPED});
     }
   },
+  componentWillUnmount() {
+    if (this.timer) {
+      clearInterval(this.timer);
+    }
+  },
   startCountdown(seconds) {
     this.setState({
       secondsRemaining: seconds,
