@@ -5,9 +5,6 @@ var Main = require('Main');
 import Timer from 'app/components/Timer.jsx';
 import Countdown from 'app/components/Countdown.jsx';
 
-// Load foundation
-require('style!css!foundation-sites/dist/foundation.min.css')
-
 // App css
 require('style!css!sass!applicationStyles')
 
