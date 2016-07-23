@@ -9,7 +9,7 @@ import Todo from 'app/components/Todo.jsx';
 const render = TestUtils.renderIntoDocument;
 
 function expectEqualListLength(todos) {
-  const todoList = TestUtils.renderIntoDocument(<TodoList todos={todos}/>);
+  const todoList = render(<TodoList todos={todos}/>);
   const todoComponents = TestUtils.scryRenderedComponentsWithType(todoList, Todo);
   expect(todoComponents.length).toBe(todos.length);
 }
@@ -28,13 +28,13 @@ describe('TodoList', () => {
   });
   it('should render ids in order given', () => {
     const todos = [{id: 2, text: 'bar'}, {id: 3, text: 'baz'}, {id: 1, text: 'foo'}];
-    const todoList = TestUtils.renderIntoDocument(<TodoList todos={todos}/>);
+    const todoList = render(<TodoList todos={todos}/>);
     const todoComponents = TestUtils.scryRenderedComponentsWithType(todoList, Todo);
     expect(todoComponents.map(c => c.props.todo.id)).toEqual(todos.map(c => c.id));
   });
   it('should render texts in order given', () => {
     const todos = [{id: 2, text: 'bar'}, {id: 3, text: 'baz'}, {id: 1, text: 'foo'}];
-    const todoList = TestUtils.renderIntoDocument(<TodoList todos={todos}/>);
+    const todoList = render(<TodoList todos={todos}/>);
     const todoComponents = TestUtils.scryRenderedComponentsWithType(todoList, Todo);
     expect(todoComponents.map(c => c.props.todo.text)).toEqual(todos.map(c => c.text));
   });
