@@ -16,12 +16,12 @@ describe('TodoApp', () => {
   it('should add todo', () => {
     const app = render(<TodoApp />);
     app.addTodo('foo');
-    expect(app.state.todos).toEqual([{id: 0, text: 'foo'}]);
+    expect(app.state.todos.map(t => t.text)).toEqual(['foo']);
   });
-  it('should increment id and append', () => {
+  it('should append', () => {
     const app = render(<TodoApp />);
     app.addTodo('foo');
     app.addTodo('bar');
-    expect(app.state.todos).toEqual([{id: 0, text: 'foo'}, {id: 1, text: 'bar'}]);
+    expect(app.state.todos.map(t => t.text)).toEqual(['foo', 'bar']);
   });
 });

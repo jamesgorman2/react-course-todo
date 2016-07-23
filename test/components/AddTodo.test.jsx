@@ -84,4 +84,28 @@ describe('AddTodo', () => {
       expect(add.find('.button').at(0).prop('disabled')).toBe(false);
     });
   });
+  describe('wiring', () =>{
+    it('input onChange', () => {
+      const spy = expect.createSpy();
+      const add = render(<AddTodo addTodo={spy}/>);
+      const e = {target: {value: 'foo'}};
+      TestUtils.Simulate.change(add.refs.input, e);
+      expect(add.state.text).toBe('foo');
+    });
+    it('input onKeyPress', () => {
+      const spy = expect.createSpy();
+      const add = render(<AddTodo addTodo={spy}/>);
+      add.setState({text: 'foo'});
+      const e = {};
+      TestUtils.Simulate.keyPress(add.refs.input, {key: '\n', keyCode: 13, preventDefault() {}});
+      expect(spy).toHaveBeenCalledWith('foo');
+    });
+    it('button onClick', () => {
+      const spy = expect.createSpy();
+      const add = render(<AddTodo addTodo={spy}/>);
+      add.setState({text: 'foo'});
+      TestUtils.Simulate.click(add.refs.button);
+      expect(spy).toHaveBeenCalledWith('foo');
+    });
+  });
 });

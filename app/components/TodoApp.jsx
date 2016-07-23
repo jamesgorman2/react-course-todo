@@ -2,7 +2,7 @@ import React from "react";
 import SearchTodo from 'app/components/SearchTodo.jsx';
 import TodoList from 'app/components/TodoList.jsx';
 import AddTodo from 'app/components/AddTodo.jsx';
-
+import uuid from 'node-uuid';
 export default React.createClass({
   getInitialState() {
     return {
@@ -13,7 +13,7 @@ export default React.createClass({
   },
   addTodo(text) {
     this.setState({
-      todos: [...this.state.todos, {id: this.state.todos.length, text}]
+      todos: [...this.state.todos, {id: uuid(), text}]
     });
   },
   search(text) {
