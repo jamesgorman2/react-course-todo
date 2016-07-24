@@ -2,65 +2,22 @@ import React from "react";
 import SearchTodo from 'app/components/SearchTodo.jsx';
 import TodoList from 'app/components/TodoList.jsx';
 import AddTodo from 'app/components/AddTodo.jsx';
-import uuid from 'node-uuid';
-import { getTodos, setTodos, getShowAll, setShowAll } from 'app/api/TodoApi.jsx';
-import moment from 'moment';
-
-function newTodo(text) {
-  return {
-    id: uuid(),
-    text,
-    completed: false,
-    created: moment().unix(),
-    completedAt: null,
-  }
-}
-
-function updateTodo(original, newFields) {
-  return Object.assign({}, original, newFields);
-}
+import { PropTodo } from 'app/components/Todo.jsx';
 
 export default React.createClass({
-  getInitialState() {
-    return {
-      todos: getTodos(),
-      searchText: null,
-      showAll: getShowAll(),
-    };
-  },
-  addTodo(text) {
-    this.updateTodos([...this.state.todos, newTodo(text)]);
-  },
-  search(text) {
-    this.setState({
-      searchText: text,
-    });
-  },
-  setShowAll(showAll) {
-    setShowAll(showAll);
-    this.setState({
-      showAll: showAll,
-    });
-  },
-  toggleCompleted(id, completed) {
-    this.updateTodos(
-      [
-        ...this.state.todos.map(t =>
-          t.id === id ? updateTodo(t, {completed, completedAt: (completed ? moment().unix() : null)}) : t
-        )
-      ]
-    );
-  },
-  updateTodos(todos) {
-    setTodos(todos);
-    this.setState({
-      todos: todos,
-    });
+  propTypes: {
+    todos: React.PropTypes.arrayOf(PropTodo).isRequired,
+    searchText: React.PropTypes.string,
+    showAll: React.PropTypes.bool.isRequired,
+    addTodo: React.PropTypes.func.isRequired,
+    toggleTodo: React.PropTypes.func.isRequired,
+    updateSearchText: React.PropTypes.func.isRequired,
+    toggleShowAll: React.PropTypes.func.isRequired,
   },
   filter(todo) {
-    const textBase = this.state.searchText ? this.state.searchText.trim() : null;
+    const textBase = this.props.searchText ? this.props.searchText.trim() : null;
     const re =  textBase ? new RegExp(textBase.replace(/\s+/im, '\s+'), 'im') : null;
-    return (this.state.showAll || !todo.completed) &&
+    return (this.props.showAll || !todo.completed) &&
       (re === null || re.test(todo.text));
   },
   sort(t1, t2) {
@@ -75,7 +32,7 @@ export default React.createClass({
       t2.created - t1.created;
   },
   render() {
-    const todos = this.state.todos.filter(this.filter);
+    const todos = this.props.todos.filter(this.filter);
     todos.sort(this.sort);
     return (
       <div>
@@ -84,12 +41,12 @@ export default React.createClass({
           <div className="column small-centered small-11 medium-6 large-5">
             <div className="container">
               <SearchTodo
-                search={this.search}
-                setShowAll={this.setShowAll}
-                searchText={this.state.searchText}
-                showAll={this.state.showAll}/>
-              <TodoList todos={todos} toggleCompleted={this.toggleCompleted}/>
-              <AddTodo addTodo={this.addTodo}/>
+                search={this.props.updateSearchText}
+                setShowAll={this.props.toggleShowAll}
+                searchText={this.props.searchText}
+                showAll={this.props.showAll}/>
+              <TodoList todos={todos} toggleCompleted={this.props.toggleTodo}/>
+              <AddTodo addTodo={this.props.addTodo}/>
             </div>
           </div>
         </div>

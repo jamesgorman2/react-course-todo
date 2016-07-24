@@ -1,12 +1,18 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var {Route, Router, IndexRoute, hashHistory} = require('react-router');
-import TodoApp from 'app/components/TodoApp.jsx';
+import { Provider } from 'react-redux';
+import { createStore, compose } from 'redux';
+import ReduxTodoApp from 'app/components/ReduxTodoApp.jsx';
+import reducers from 'app/reducers.jsx';
 
 // App css
 require('style!css!sass!applicationStyles')
 
+const store = createStore(reducers, compose(window.devToolsExtension ? window.devToolsExtension() : (f => f)));
+
 ReactDOM.render(
-  <TodoApp />,
+  <Provider store={store}>
+    <ReduxTodoApp />
+  </Provider>,
   document.getElementById('app')
 );
