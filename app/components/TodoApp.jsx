@@ -79,14 +79,20 @@ export default React.createClass({
     todos.sort(this.sort);
     return (
       <div>
-        <div>Todo</div>
-        <SearchTodo
-          search={this.search}
-          setShowAll={this.setShowAll}
-          searchText={this.state.searchText}
-          showAll={this.state.showAll}/>
-        <TodoList todos={todos} toggleCompleted={this.toggleCompleted}/>
-        <AddTodo addTodo={this.addTodo}/>
+        <h1 className="page-title">Todo App</h1>
+        <div className="row">
+          <div className="column small-centered small-11 medium-6 large-5">
+            <div className="container">
+              <SearchTodo
+                search={this.search}
+                setShowAll={this.setShowAll}
+                searchText={this.state.searchText}
+                showAll={this.state.showAll}/>
+              <TodoList todos={todos} toggleCompleted={this.toggleCompleted}/>
+              <AddTodo addTodo={this.addTodo}/>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

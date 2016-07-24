@@ -26,7 +26,7 @@ export default React.createClass({
   },
   render() {
     return (
-      <div>
+      <div className="container__footer">
         <input
           type="text"
           ref="input"

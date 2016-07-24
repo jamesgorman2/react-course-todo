@@ -17,6 +17,9 @@ export default React.createClass({
   onChange(e) {
     this.props.toggleCompleted(this.props.todo.id, e.target.checked);
   },
+  onClick() {
+    this.props.toggleCompleted(this.props.todo.id, !this.props.todo.completed);
+  },
   formatDate(timestamp) {
     return moment.unix(timestamp).format('D MMMM YYYY @ h:mm:ss A')
   },
@@ -25,15 +28,19 @@ export default React.createClass({
       (<div>Completed {this.formatDate(this.props.todo.completedAt)}</div>) :
       (<div>Created {this.formatDate(this.props.todo.created)}</div>);
     return (
-      <div>
-        <label>
-          <input
-            type="checkbox"
-            checked={this.props.todo.completed}
-            onChange={this.onChange}/>
+      <div
+          className={this.props.todo.completed ? 'todo todo-completed' : 'todo'}
+          onClick={this.onClick}>
+        <input
+          type="checkbox"
+          checked={this.props.todo.completed}
+          onChange={this.onChange}/>
+        <div>
           {this.props.todo.text}
-        </label>
-        {date}
+          <div className="todo__subtext">
+            {date}
+          </div>
+        </div>
       </div>
     );
   }
