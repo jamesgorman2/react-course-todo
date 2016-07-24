@@ -67,23 +67,6 @@ describe('AddTodo', () => {
 
     });
   });
-  describe('render', () => {
-    it('button disabled on empty text', () => {
-      const add = shallow(<AddTodo addTodo={()=>{}}/>);
-      add.setState({text: null});
-      expect(add.find('.button').at(0).prop('disabled')).toBe(true);
-    });
-    it('button disabled on whitespace only', () => {
-      const add = shallow(<AddTodo addTodo={()=>{}}/>);
-      add.setState({text: '  '});
-      expect(add.find('.button').at(0).prop('disabled')).toBe(true);
-    });
-    it('button enabled on nonempty text', () => {
-      const add = shallow(<AddTodo addTodo={()=>{}}/>);
-      add.setState({text: '  foo  '});
-      expect(add.find('.button').at(0).prop('disabled')).toBe(false);
-    });
-  });
   describe('wiring', () =>{
     it('input onChange', () => {
       const spy = expect.createSpy();

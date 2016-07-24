@@ -38,7 +38,6 @@ export default React.createClass({
           className="button expanded"
           ref="button"
           onClick={this.onSubmit}
-          disabled={!(this.state.text && this.state.text.trim())}
         >
           Add Todo
         </button>

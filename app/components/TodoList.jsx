@@ -3,10 +3,16 @@ import Todo, { PropTodo } from 'app/components/Todo.jsx';
 
 export default React.createClass({
   propTypes: {
-    todos: React.PropTypes.arrayOf(PropTodo).isRequired
+    todos: React.PropTypes.arrayOf(PropTodo).isRequired,
+    toggleCompleted: React.PropTypes.func.isRequired,
   },
   render() {
-    const list = this.props.todos.map(todo => (<Todo key={todo.id} todo={todo}/>));
+    const list = this.props.todos.map(todo =>
+      (<Todo
+        key={todo.id}
+        todo={todo}
+        toggleCompleted={this.props.toggleCompleted}/>)
+    );
     return (
       <div>
         {list}
