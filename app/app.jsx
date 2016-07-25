@@ -3,7 +3,7 @@ var ReactDOM = require('react-dom');
 import { Provider } from 'react-redux';
 import { createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import ReduxTodoApp from 'app/components/ReduxTodoApp.jsx';
+import TodoApp from 'app/components/TodoApp.jsx';
 import reducers from 'app/reducers.jsx';
 import { setTodos, getTodos, setShowAll, getShowAll } from 'app/api/TodoApi.jsx';
 
@@ -27,7 +27,7 @@ store.subscribe(() => {
 
 ReactDOM.render(
   <Provider store={store}>
-    <ReduxTodoApp />
+    <TodoApp />
   </Provider>,
   document.getElementById('app')
 );
