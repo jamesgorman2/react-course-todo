@@ -13,10 +13,6 @@ function newTodo(text) {
   }
 }
 
-function updateTodo(original, newFields) {
-  return {...original, ...newFields};
-}
-
 function todos(state = [], action) {
   switch (action.type) {
     case ADD_TODO:
@@ -25,7 +21,7 @@ function todos(state = [], action) {
       return [
         ...state.map(t =>
           t.id === action.id ?
-            updateTodo(t, {completed: action.completed, completedAt: (action.completed ? moment().unix() : null)}) :
+            {...t, completed: action.completed, completedAt: (action.completed ? moment().unix() : null)} :
             t
         )
       ];

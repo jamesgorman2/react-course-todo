@@ -6,6 +6,7 @@ export function setTodos(todos) {
     localStorage.setItem(TODOS_KEY, JSON.stringify(todos));
     return todos;
   }
+  console.log(`Bad todos ${todos}`);
 };
 
 export function getTodos() {
@@ -18,6 +19,7 @@ export function setShowAll(showAll) {
     localStorage.setItem(SHOWALL_KEY, JSON.stringify(showAll));
     return showAll;
   }
+  console.log(`Bad showAll ${showAll}`);
 }
 
 export function getShowAll() {

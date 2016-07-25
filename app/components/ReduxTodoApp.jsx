@@ -28,7 +28,7 @@ function mapState(state) {
   const todos = state.todos.filter(filter(state.searchText, state.showAll));
   todos.sort(sort);
   return {
-    todos: state.todos,
+    todos,
     searchText: state.searchText,
     showAll: state.showAll,
   }

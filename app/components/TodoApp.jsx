@@ -14,26 +14,7 @@ export default React.createClass({
     updateSearchText: React.PropTypes.func.isRequired,
     toggleShowAll: React.PropTypes.func.isRequired,
   },
-  filter(todo) {
-    const textBase = this.props.searchText ? this.props.searchText.trim() : null;
-    const re =  textBase ? new RegExp(textBase.replace(/\s+/im, '\s+'), 'im') : null;
-    return (this.props.showAll || !todo.completed) &&
-      (re === null || re.test(todo.text));
-  },
-  sort(t1, t2) {
-    if (t1.completed && !t2.completed) {
-      return 1;
-    }
-    if (!t1.completed && t2.completed) {
-      return -1;
-    }
-    return t1.completed ?
-      t2.completedAt - t1.completedAt :
-      t2.created - t1.created;
-  },
   render() {
-    const todos = this.props.todos.filter(this.filter);
-    todos.sort(this.sort);
     return (
       <div>
         <h1 className="page-title">Todo App</h1>
@@ -45,7 +26,7 @@ export default React.createClass({
                 setShowAll={this.props.toggleShowAll}
                 searchText={this.props.searchText}
                 showAll={this.props.showAll}/>
-              <TodoList todos={todos} toggleCompleted={this.props.toggleTodo}/>
+              <TodoList todos={this.props.todos} toggleCompleted={this.props.toggleTodo}/>
               <AddTodo addTodo={this.props.addTodo}/>
             </div>
           </div>
