@@ -1,10 +1,13 @@
 import React from "react";
 
 export default React.createClass({
-  getInitialState() {
+  getDefaultProps() {
     return {text: null};
   },
   propTypes: {
+    text: React.PropTypes.string,
+    loading: React.PropTypes.bool.isRequired,
+    updateText: React.PropTypes.func.isRequired,
     addTodo: React.PropTypes.func.isRequired,
   },
   onKeyPress(e) {
@@ -14,14 +17,12 @@ export default React.createClass({
     }
   },
   onChange(e) {
-    this.setState({
-      text: e.target.value === '' ? null : e.target.value
-    });
+    this.props.updateText(e.target.value === '' ? null : e.target.value);
   },
   onSubmit(e) {
-    if (this.state.text && this.state.text.trim()) {
-      this.props.addTodo(this.state.text.trim());
-      this.setState({text: null})
+    if (this.props.text && this.props.text.trim()) {
+      this.props.addTodo(this.props.text.trim());
+      this.props.updateText(null);
     }
   },
   render() {
@@ -31,13 +32,15 @@ export default React.createClass({
           type="text"
           ref="input"
           placeholder="Add a todo"
-          value={this.state.text != null ? this.state.text : ''}
+          value={this.props.text != null ? this.props.text : ''}
           onChange={this.onChange}
-          onKeyPress={this.onKeyPress}/>
+          onKeyPress={this.onKeyPress}
+          disabled={this.props.loading}/>
         <button
           className="button expanded"
           ref="button"
           onClick={this.onSubmit}
+          disabled={this.props.loading}
         >
           Add Todo
         </button>

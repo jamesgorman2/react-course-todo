@@ -1,6 +1,10 @@
 import { connect } from 'react-redux'
-import { updateSearchText, toggleShowAll } from 'app/actions.jsx'
 import SearchTodo from 'app/components/SearchTodo.jsx'
+import * as Api from 'app/api/TodoApi.jsx';
+import actions from 'app/actions.jsx';
+
+const updateSearchText = actions(Api).updateSearchText;
+const toggleShowAll = actions(Api).toggleShowAll;
 
 function mapState(state, ownProps) {
   return {

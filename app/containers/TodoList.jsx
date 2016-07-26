@@ -1,6 +1,9 @@
 import { connect } from 'react-redux'
-import { toggleTodo } from 'app/actions.jsx'
 import TodoList from 'app/components/TodoList.jsx'
+import * as Api from 'app/api/TodoApi.jsx';
+import actions from 'app/actions.jsx';
+
+const toggleTodo = actions(Api).toggleTodo;
 
 function filter(searchText, showAll) {
   return todo => {
@@ -24,7 +27,9 @@ function sort(t1, t2) {
 }
 
 function mapState(state, ownProps) {
-  const todos = state.todos.filter(filter(state.searchText, state.showAll));
+  const todos = Object.keys(state.todos)
+    .map(key => {return {...state.todos[key], id: key};})
+    .filter(filter(state.searchText, state.showAll));
   todos.sort(sort);
   return { todos };
 }

@@ -1,30 +1,23 @@
 import { combineReducers } from 'redux';
-import { ADD_TODO, TOGGLE_TODO, UPDATE_SEARCH_TEXT, TOGGLE_SHOW_ALL } from 'app/actions.jsx';
-import uuid from 'node-uuid';
-import moment from 'moment';
+import {
+  FINISH_LOAD_TODOS,
+  UPDATE_TODO_FROM_SERVER,
+  UPDATE_SEARCH_TEXT,
+  TOGGLE_SHOW_ALL,
+  START_ADD_TODO,
+  FINISH_ADD_TODO,
+  ERROR_ADD_TODO,
+  UPDATE_NEW_TODO_TEXT,
+} from 'app/actions.jsx';
 
-function newTodo(text) {
-  return {
-    id: uuid(),
-    text,
-    completed: false,
-    created: moment().unix(),
-    completedAt: null,
-  }
-}
-
-function todos(state = [], action) {
+function todos(state = {}, action) {
   switch (action.type) {
-    case ADD_TODO:
-      return [...state, newTodo(action.text)];
-    case TOGGLE_TODO:
-      return [
-        ...state.map(t =>
-          t.id === action.id ?
-            {...t, completed: action.completed, completedAt: (action.completed ? moment().unix() : null)} :
-            t
-        )
-      ];
+    case FINISH_LOAD_TODOS:
+      return {...state, ...action.todos};
+    case UPDATE_TODO_FROM_SERVER:
+      const newState = {...state};
+      newState[action.id] = action.todo;
+      return newState;
     default:
       return state;
   }
@@ -48,8 +41,24 @@ function showAll(state = false, action) {
   }
 }
 
+function addTodo(state = {loading: false, text: null}, action) {
+  switch (action.type) {
+    case START_ADD_TODO:
+      return {...state, loading: true};
+    case FINISH_ADD_TODO:
+      return {...state, loading: false};
+    case ERROR_ADD_TODO:
+      return {...state, loading: false};
+    case UPDATE_NEW_TODO_TEXT:
+      return {...state, text: action.text};
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   todos,
   searchText,
-  showAll
+  showAll,
+  addTodo,
 });

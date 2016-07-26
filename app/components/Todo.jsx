@@ -14,9 +14,6 @@ export default React.createClass({
     todo: PropTodo,
     toggleCompleted: React.PropTypes.func.isRequired,
   },
-  onChange(e) {
-    this.props.toggleCompleted(this.props.todo.id, e.target.checked);
-  },
   onClick() {
     this.props.toggleCompleted(this.props.todo.id, !this.props.todo.completed);
   },
@@ -34,7 +31,7 @@ export default React.createClass({
         <input
           type="checkbox"
           checked={this.props.todo.completed}
-          onChange={this.onChange}/>
+          onChange={e => e.preventDefault()}/>
         <div>
           {this.props.todo.text}
           <div className="todo__subtext">
