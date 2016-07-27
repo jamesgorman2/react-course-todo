@@ -36,6 +36,8 @@ function searchText(state = null, action) {
   switch (action.type) {
     case UPDATE_SEARCH_TEXT:
       return action.searchText;
+    case FINISH_LOG_OUT:
+      return null;
     default:
       return state;
   }
@@ -45,6 +47,8 @@ function showAll(state = false, action) {
   switch (action.type) {
     case TOGGLE_SHOW_ALL:
       return action.showAll;
+    case FINISH_LOG_OUT:
+      return false;
     default:
       return state;
   }
@@ -60,6 +64,8 @@ function addTodo(state = {loading: false, text: null}, action) {
       return {...state, loading: false};
     case UPDATE_NEW_TODO_TEXT:
       return {...state, text: action.text};
+    case FINISH_LOG_OUT:
+      return {loading: false, text: null};
     default:
       return state;
   }
