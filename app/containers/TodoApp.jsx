@@ -5,7 +5,7 @@ import TodoApp from 'app/components/TodoApp.jsx';
 
 function mapState(state, ownProps) {
   return {
-    loggedIn: state.login.loggedIn,
+    user: state.auth.user,
   };
 }
 

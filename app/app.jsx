@@ -11,14 +11,14 @@ import actions from 'app/actions.jsx';
 
 const loadTodos = actions(Api).loadTodos;
 const updateTodoFromServer = actions(Api).updateTodoFromServer;
-const setLoggedIn = actions(Api).setLoggedIn;
+const setUser = actions(Api).setUser;
 
 // App css
 require('style!css!sass!applicationStyles')
 
 const store = createStore(
   reducers,
-  { showAll: getShowAll(), login: {loggedIn: Api.userLoggedIn()} },
+  { showAll: getShowAll(), auth: {user: Api.loggedInUser()} },
   compose(
     applyMiddleware(thunk),
     window.devToolsExtension ? window.devToolsExtension() : (f => f)
@@ -31,7 +31,7 @@ store.subscribe(() => {
 
 subscribeToTodos((id, todo) => store.dispatch(updateTodoFromServer(id, todo)));
 
-Api.onUserLoaded(loggedIn => store.dispatch(setLoggedIn(loggedIn)))
+Api.onUserLoaded(user => store.dispatch(setUser(user)))
 
 ReactDOM.render(
   <Provider store={store}>

@@ -63,22 +63,22 @@ function addTodo(state = {loading: false, text: null}, action) {
   }
 }
 
-function login(state = {loggedIn: false, loggingIn: false, loggingOut: false}, action) {
+function auth(state = {user: null, loggingIn: false, loggingOut: false}, action) {
   switch (action.type) {
     case START_LOG_IN:
       return {...state, loggingIn: true};
     case FINISH_LOG_IN:
-      return {...state, loggedIn: true, loggingIn: false};
+      return {...state, user: action.user, loggingIn: false};
     case ERROR_LOG_IN:
-      return {...state, loggedIn: false, loggingIn: false};
+      return {...state, user: null, loggingIn: false};
     case START_LOG_OUT:
       return {...state, loggingOut: true};
     case FINISH_LOG_OUT:
-      return {...state, loggedIn: false, loggingOut: false};
+      return {...state, user: null, loggingOut: false};
     case ERROR_LOG_OUT:
-      return {...state, loggedIn: false, loggingOut: false};
+      return {...state, user: null, loggingOut: false};
     case SET_LOGGED_IN:
-      return {...state, loggedIn: action.loggedIn};
+      return {...state, user: action.user};
     default:
       return state;
   }
@@ -89,5 +89,5 @@ export default combineReducers({
   searchText,
   showAll,
   addTodo,
-  login,
+  auth,
 });

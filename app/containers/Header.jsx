@@ -7,7 +7,7 @@ const logOut = actions(Api).logOut;
 
 function mapState(state, ownProps) {
   return {
-    loggedIn: state.login.loggedIn,
+    user: state.auth.user,
   };
 }
 

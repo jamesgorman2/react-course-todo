@@ -8,8 +8,6 @@ const config = {
   storageBucket: process.env.STORAGE_BUCKET,
 };
 
-console.log(config);
-
 firebase.initializeApp(config);
 
 const gitHubProvider = new firebase.auth.GithubAuthProvider();
@@ -58,8 +56,8 @@ export function getShowAll() {
   return showAllString ? JSON.parse(showAllString) : false;
 }
 
-export function userLoggedIn() {
-  return firebase.auth().currentUser !== null && firebase.auth().currentUser !== undefined;
+export function loggedInUser() {
+  return firebase.auth().currentUser ? firebase.auth().currentUser.uid : null;
 }
 
 export function logIn() {
@@ -73,8 +71,8 @@ export function logOut() {
 export function onUserLoaded(f) {
   let unsubscribe = () => {};
   unsubscribe = firebase.auth().onAuthStateChanged(
-    user => f(user !== null && user !== undefined),
-    () => {},
+    user => f(firebase.auth().currentUser ? firebase.auth().currentUser : null),
+    e => {console.log(e);},
     unsubscribe
   );
 }

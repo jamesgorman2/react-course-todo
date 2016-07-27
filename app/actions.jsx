@@ -72,7 +72,7 @@ export default function actions(api) {
       return dispatch => {
         dispatch({type: START_LOG_IN});
         return api.logIn()
-          .then(() => dispatch({type: FINISH_LOG_IN}))
+          .then(user => dispatch({type: FINISH_LOG_IN, user}))
           .catch(e => dispatch({type: ERROR_LOG_IN}));
       }
     },
@@ -84,8 +84,8 @@ export default function actions(api) {
           .catch(e => dispatch({type: ERROR_LOG_OUT}));
       }
     },
-    setLoggedIn(loggedIn) {
-      return { type: SET_LOGGED_IN, loggedIn };
+    setUser(user) {
+      return { type: SET_LOGGED_IN, user };
     }
   };
 };

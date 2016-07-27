@@ -7,10 +7,10 @@ import Login from 'app/containers/Login.jsx';
 
 export default React.createClass({
   propTypes: {
-    loggedIn: React.PropTypes.bool.isRequired,
+    user: React.PropTypes.object,
   },
   render() {
-    const body = this.props.loggedIn ?
+    const body = this.props.user ?
     (
       <div className="container">
         <SearchTodo />
