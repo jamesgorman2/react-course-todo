@@ -12,8 +12,12 @@ firebase.initializeApp(config);
 
 const gitHubProvider = new firebase.auth.GithubAuthProvider();
 
-const todos = firebase.database().ref().child('todos');
-const showAll = firebase.database().ref().child('showAll');
+function todos(user) {
+  return firebase.database().ref().child(`users/${user.uid}/todos`);
+}
+function showAll(user) {
+  firebase.database().ref().child(`users/${user.uid}/showAll`);
+}
 
 function newTodo(text) {
   return {
@@ -24,21 +28,25 @@ function newTodo(text) {
   }
 }
 
-export function addTodo(text) {
-  return todos.push(newTodo(text));
+export function addTodo(uid, text) {
+  return todos(uid).push(newTodo(text));
 }
 
-export function getTodos() {
-  return todos.once('value').then(snapshot => snapshot.val());
+export function getTodos(uid) {
+  return todos(uid).once('value').then(snapshot => snapshot.val());
 }
 
-export function updateTodo(id, newValues) {
-  return todos.child(id).update(newValues);
+export function updateTodo(uid, id, newValues) {
+  return todos(uid).child(id).update(newValues);
 }
 
-export function subscribeToTodos(f) {
-  todos.on('child_added', c => f(c.key, c.val()));
-  todos.on('child_changed', c => f(c.key, c.val()));
+export function subscribeToTodos(uid, f) {
+  todos(uid).on('child_added', c => f(c.key, c.val()));
+  todos(uid).on('child_changed', c => f(c.key, c.val()));
+}
+export function unsubscribeToTodos(uid) {
+  todos(uid).off('child_added');
+  todos(uid).off('child_changed');
 }
 
 const SHOWALL_KEY = 'show_all';

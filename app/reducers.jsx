@@ -25,6 +25,8 @@ function todos(state = {}, action) {
       const newState = {...state};
       newState[action.id] = action.todo;
       return newState;
+    case FINISH_LOG_OUT:
+      return {};
     default:
       return state;
   }

@@ -5,7 +5,7 @@ import { createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import TodoApp from 'app/containers/TodoApp.jsx';
 import reducers from 'app/reducers.jsx';
-import { setShowAll, getShowAll, subscribeToTodos } from 'app/api/TodoApi.jsx';
+import { setShowAll, getShowAll, subscribeToTodos, unsubscribeToTodos } from 'app/api/TodoApi.jsx';
 import * as Api from 'app/api/TodoApi.jsx';
 import actions from 'app/actions.jsx';
 
@@ -27,6 +27,18 @@ const store = createStore(
 store.subscribe(() => {
   const { showAll } = store.getState();
   setShowAll(showAll);
+});
+let lastUser = null;
+store.subscribe(() => {
+  const user = store.getState().auth.user;
+  if (user !== lastUser) {
+    if (user) {
+      subscribeToTodos(user, (id, todo) => store.dispatch(updateTodoFromServer(id, todo)));
+    } else {
+      unsubscribeToTodos(lastUser);
+    }
+    lastUser = user;
+  }
 });
 
 subscribeToTodos((id, todo) => store.dispatch(updateTodoFromServer(id, todo)));

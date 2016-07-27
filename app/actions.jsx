@@ -33,25 +33,25 @@ export const SET_LOGGED_IN = 'set_logged_in';
 export default function actions(api) {
   return {
     addTodo(text) {
-      return dispatch => {
+      return (dispatch, getState) => {
         dispatch({ type: START_ADD_TODO });
-        return api.addTodo(text)
+        return api.addTodo(getState().auth.user, text)
           .then(o => dispatch({ type: FINISH_ADD_TODO, o }))
           .catch(e => dispatch({ type: ERROR_ADD_TODO, e }));
       };
     },
     loadTodos() {
-      return dispatch => {
+      return (dispatch, getState) => {
         dispatch({type: START_LOAD_TODOS});
-        return api.getTodos()
+        return api.getTodos(getState().auth.user)
           .then(todos => dispatch({ type: FINISH_LOAD_TODOS, todos }))
           .catch(e => dispatch({ type: ERROR_LOAD_TODOS, e}));
       };
     },
     toggleTodo(id, completed) {
-      return dispatch => {
+      return (dispatch, getState) => {
         dispatch({type: START_TOGGLE_TODO, id, completed});
-        return api.updateTodo(id, { completed })
+        return api.updateTodo(getState().auth.user, id, { completed })
           .then(() => dispatch({ type: FINISH_TOGGLE_TODO, id }))
           .catch(e => dispatch({ type: ERROR_TOGGLE_TODO, id, e }));
       };
