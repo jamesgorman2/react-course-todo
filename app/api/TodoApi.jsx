@@ -50,5 +50,5 @@ export function setShowAll(showAll) {
 
 export function getShowAll() {
   const showAllString = localStorage.getItem(SHOWALL_KEY);
-  return showAllString ? JSON.parse(showAllString) : [];
+  return showAllString ? JSON.parse(showAllString) : false;
 }
