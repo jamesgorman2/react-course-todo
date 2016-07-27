@@ -1,6 +1,9 @@
 var webpack = require('webpack');
 var path = require('path');
 
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+var env = process.env.NODE_ENV;
+
 module.exports = {
   entry: [
     'script!jquery/dist/jquery.min.js',
@@ -14,7 +17,6 @@ module.exports = {
   resolve: {
     root: __dirname,
     alias: {
-      Main: 'app/components/Main.jsx',
       applicationStyles: 'app/styles/app.scss',
     },
     extensions: ['', '.js', '.jsx']
@@ -31,7 +33,7 @@ module.exports = {
       }
     ]
   },
-  devtool: 'cheap-module-eval-source-map',
+  devtool: env === 'production' ? undefined : 'cheap-module-eval-source-map',
   sassLoader: {
     includePaths: [
       path.resolve(__dirname, './node_modules/foundation-sites/scss')
@@ -42,5 +44,10 @@ module.exports = {
     'react/addons': true,
     'react/lib/ExecutionEnvironment': true,
     'react/lib/ReactContext': true
-  }
+  },
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: { warnings: false },
+    }),
+  ]
 };

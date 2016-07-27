@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
+    "build-p": "webpack -p",
     "test": "karma start",
-    "start": "node server.js",
+    "start": "npm run build && node server.js",
     "run": "webpack -w"
   },
   "author": "Andrew Mead",
@@ -25,18 +26,23 @@
     "react-router": "^2.4.0",
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
-    "sass-loader": "^3.2.2"
-  },
-  "devDependencies": {
+    "sass-loader": "^3.2.2",
     "babel-core": "^6.5.1",
     "babel-loader": "^6.2.2",
     "babel-preset-es2015": "^6.5.0",
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
     "css-loader": "^0.23.1",
+    "sass-loader": "^3.1.2",
+    "script-loader": "^0.7.0",
+    "style-loader": "^0.13.0",
+    "node-sass": "^3.4.2",
+    "foundation-sites": "^6.2.0",
+    "webpack": "^1.12.13"
+  },
+  "devDependencies": {
     "enzyme": "^2.3.0",
     "expect": "^1.20.1",
-    "foundation-sites": "^6.2.0",
     "karma": "^1.1.0",
     "karma-chrome-launcher": "^1.0.1",
     "karma-mocha": "^1.1.1",
@@ -44,13 +50,8 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.7.0",
     "mocha": "^2.5.3",
-    "node-sass": "^3.4.2",
     "react-addons-test-utils": "^15.1.0",
     "redux-mock-store": "^1.1.2",
-    "sass-loader": "^3.1.2",
-    "script-loader": "^0.7.0",
-    "sinon": "^2.0.0-pre",
-    "style-loader": "^0.13.0",
-    "webpack": "^1.12.13"
+    "sinon": "^2.0.0-pre"
   }
 }
