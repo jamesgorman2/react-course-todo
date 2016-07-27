@@ -12,13 +12,21 @@ export const START_TOGGLE_TODO = 'start-toggle-todo';
 export const FINISH_TOGGLE_TODO = 'finish-toggle-todo';
 export const ERROR_TOGGLE_TODO = 'error-toggle-todo';
 
+export const START_LOG_IN = 'start-LOG_IN';
+export const FINISH_LOG_IN = 'finish-LOG_IN';
+export const ERROR_LOG_IN = 'error-LOG_IN';
+
+export const START_LOG_OUT = 'start-LOG_OUT';
+export const FINISH_LOG_OUT = 'finish-LOG_OUT';
+export const ERROR_LOG_OUT = 'error-LOG_OUT';
+
 export const UPDATE_TODO_FROM_SERVER = 'update-todo-from-server';
 
 export const TOGGLE_TODO = 'toggle-todo';
 export const UPDATE_SEARCH_TEXT = 'update-search-text';
 export const TOGGLE_SHOW_ALL = 'toggle-show-all';
 
-export const UPDATE_NEW_TODO_TEXT = 'UPDATE_NEW_TODO_TEXT';
+export const UPDATE_NEW_TODO_TEXT = 'update_new_todo_text';
 
 export default function actions(api) {
   return {
@@ -57,6 +65,22 @@ export default function actions(api) {
     },
     updateNewTodoText(text) {
       return { type: UPDATE_NEW_TODO_TEXT, text };
-    }
+    },
+    logIn() {
+      return dispatch => {
+        dispatch({type: START_LOG_IN});
+        return api.logIn()
+          .then(() => dispatch({type: FINISH_LOG_IN}))
+          .catch(e => dispatch({type: ERROR_LOG_IN}));
+      }
+    },
+    logOut() {
+      return dispatch => {
+        dispatch({type: START_LOG_OUT});
+        return api.logOut()
+          .then(() => dispatch({type: FINISH_LOG_OUT}))
+          .catch(e => dispatch({type: ERROR_LOG_OUT}));
+      }
+    },
   };
 };

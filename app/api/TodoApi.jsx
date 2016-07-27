@@ -11,6 +11,9 @@ const config = {
 console.log(config);
 
 firebase.initializeApp(config);
+
+const gitHubProvider = new firebase.auth.GithubAuthProvider();
+
 const todos = firebase.database().ref().child('todos');
 const showAll = firebase.database().ref().child('showAll');
 
@@ -53,4 +56,12 @@ export function setShowAll(showAll) {
 export function getShowAll() {
   const showAllString = localStorage.getItem(SHOWALL_KEY);
   return showAllString ? JSON.parse(showAllString) : false;
+}
+
+export function logIn() {
+  return firebase.auth().signInWithPopup(gitHubProvider);
+}
+
+export function logOut() {
+  return firebase.auth().signOut();
 }

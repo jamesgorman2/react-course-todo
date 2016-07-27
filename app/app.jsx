@@ -3,7 +3,7 @@ var ReactDOM = require('react-dom');
 import { Provider } from 'react-redux';
 import { createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import TodoApp from 'app/components/TodoApp.jsx';
+import TodoApp from 'app/containers/TodoApp.jsx';
 import reducers from 'app/reducers.jsx';
 import { setShowAll, getShowAll, subscribeToTodos } from 'app/api/TodoApi.jsx';
 import * as Api from 'app/api/TodoApi.jsx';
