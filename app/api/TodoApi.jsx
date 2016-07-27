@@ -2,11 +2,13 @@ import firebase from 'firebase';
 import moment from 'moment';
 
 const config = {
-  apiKey: "AIzaSyCAUgwjBzcxP7FYeAAg5MUKVrKbAZNLzEI",
-  authDomain: "react-course-todo.firebaseapp.com",
-  databaseURL: "https://react-course-todo.firebaseio.com",
-  storageBucket: "react-course-todo.appspot.com",
+  apiKey: process.env.API_KEY,
+  authDomain: process.env.AUTH_DOMAIN,
+  databaseURL: process.env.DATABASE_URL,
+  storageBucket: process.env.STORAGE_BUCKET,
 };
+
+console.log(config);
 
 firebase.initializeApp(config);
 const todos = firebase.database().ref().child('todos');
