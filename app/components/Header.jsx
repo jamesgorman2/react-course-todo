@@ -2,10 +2,11 @@ import React from "react";
 
 export default React.createClass({
   propTypes: {
+    loggedIn: React.PropTypes.bool.isRequired,
     logOut: React.PropTypes.func.isRequired,
   },
   render() {
-    const logOut = (
+    const logOut = this.props.loggedIn ? (
       <div className="top-bar-right">
         <ul className="menu">
           <li className="menu-text interactive">
@@ -13,7 +14,7 @@ export default React.createClass({
           </li>
         </ul>
       </div>
-    );
+    ) : null;
 
     return (
       <div className="top-bar">

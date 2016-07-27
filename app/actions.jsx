@@ -28,6 +28,8 @@ export const TOGGLE_SHOW_ALL = 'toggle-show-all';
 
 export const UPDATE_NEW_TODO_TEXT = 'update_new_todo_text';
 
+export const SET_LOGGED_IN = 'set_logged_in';
+
 export default function actions(api) {
   return {
     addTodo(text) {
@@ -82,5 +84,8 @@ export default function actions(api) {
           .catch(e => dispatch({type: ERROR_LOG_OUT}));
       }
     },
+    setLoggedIn(loggedIn) {
+      return { type: SET_LOGGED_IN, loggedIn };
+    }
   };
 };

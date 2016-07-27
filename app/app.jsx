@@ -11,13 +11,14 @@ import actions from 'app/actions.jsx';
 
 const loadTodos = actions(Api).loadTodos;
 const updateTodoFromServer = actions(Api).updateTodoFromServer;
+const setLoggedIn = actions(Api).setLoggedIn;
 
 // App css
 require('style!css!sass!applicationStyles')
 
 const store = createStore(
   reducers,
-  { showAll: getShowAll() },
+  { showAll: getShowAll(), login: {loggedIn: Api.userLoggedIn()} },
   compose(
     applyMiddleware(thunk),
     window.devToolsExtension ? window.devToolsExtension() : (f => f)
@@ -29,7 +30,8 @@ store.subscribe(() => {
 });
 
 subscribeToTodos((id, todo) => store.dispatch(updateTodoFromServer(id, todo)));
-//store.dispatch(loadTodos());
+
+Api.onUserLoaded(loggedIn => store.dispatch(setLoggedIn(loggedIn)))
 
 ReactDOM.render(
   <Provider store={store}>

@@ -58,10 +58,23 @@ export function getShowAll() {
   return showAllString ? JSON.parse(showAllString) : false;
 }
 
+export function userLoggedIn() {
+  return firebase.auth().currentUser !== null && firebase.auth().currentUser !== undefined;
+}
+
 export function logIn() {
   return firebase.auth().signInWithPopup(gitHubProvider);
 }
 
 export function logOut() {
   return firebase.auth().signOut();
+}
+
+export function onUserLoaded(f) {
+  let unsubscribe = () => {};
+  unsubscribe = firebase.auth().onAuthStateChanged(
+    user => f(user !== null && user !== undefined),
+    () => {},
+    unsubscribe
+  );
 }
