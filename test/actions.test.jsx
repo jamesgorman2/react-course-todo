@@ -5,6 +5,7 @@ import thunk from 'redux-thunk';
 
 const mockStore = configureStore([thunk]);
 
+// these test no longer work since we're using GitHub auth :-(
 describe('action', () => {
   describe('addTodo', () => {
     it('should dispatch start then finish', done => {
