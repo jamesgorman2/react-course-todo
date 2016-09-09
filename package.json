@@ -1,7 +1,7 @@
 {
-  "name": "counter-timer",
+  "name": "react-todo",
   "version": "1.0.0",
-  "description": "Simple react app",
+  "description": "Simple react todo app",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
@@ -10,7 +10,7 @@
     "start": "npm run build && node server.js",
     "run": "webpack -w"
   },
-  "author": "Andrew Mead",
+  "author": "James Gorman",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.12.0",
